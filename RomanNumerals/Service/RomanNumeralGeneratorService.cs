@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
 using RomanNumerals.Interface;
 using RomanNumerals.Models;
@@ -9,36 +10,34 @@ namespace RomanNumerals.Service
     public class RomanNumeralGeneratorService : IRomanNumeralGenerator
     {
 
-        StringBuilder _result;
+        private readonly List<RomanNumeralValuePair> romanNumeralValuePairList = new List<RomanNumeralValuePair>();
 
-        readonly List<RomanNumeralValuePair> RomanNumeralValuePairList = new List<RomanNumeralValuePair>();
-
-        private IConfigurationSettings _settingsService;
+        private readonly IConfigurationSettings settingsService;
 
         public RomanNumeralGeneratorService(IConfigurationSettings settingsService)
         {
 
             // inject a service that implements the configuration settings interface
 
-            _settingsService = settingsService;
+            this.settingsService = settingsService;
 
-            if (_settingsService != null)
+            if (this.settingsService != null)
             {
                 // populate the roman numeral / roman numeral combinations along with their values into a list
 
-                RomanNumeralValuePairList.Add(new RomanNumeralValuePair(1000, _settingsService.ROMAN_NUMERAL_M));
-                RomanNumeralValuePairList.Add(new RomanNumeralValuePair(900, _settingsService.ROMAN_NUMERAL_CM));
-                RomanNumeralValuePairList.Add(new RomanNumeralValuePair(500, _settingsService.ROMAN_NUMERAL_D));
-                RomanNumeralValuePairList.Add(new RomanNumeralValuePair(400, _settingsService.ROMAN_NUMERAL_CD));
-                RomanNumeralValuePairList.Add(new RomanNumeralValuePair(100, _settingsService.ROMAN_NUMERAL_C));
-                RomanNumeralValuePairList.Add(new RomanNumeralValuePair(90, _settingsService.ROMAN_NUMERAL_XC));
-                RomanNumeralValuePairList.Add(new RomanNumeralValuePair(50, _settingsService.ROMAN_NUMERAL_L));
-                RomanNumeralValuePairList.Add(new RomanNumeralValuePair(40, _settingsService.ROMAN_NUMERAL_XL));
-                RomanNumeralValuePairList.Add(new RomanNumeralValuePair(10, _settingsService.ROMAN_NUMERAL_X));
-                RomanNumeralValuePairList.Add(new RomanNumeralValuePair(9, _settingsService.ROMAN_NUMERAL_IX));
-                RomanNumeralValuePairList.Add(new RomanNumeralValuePair(5, _settingsService.ROMAN_NUMERAL_V));
-                RomanNumeralValuePairList.Add(new RomanNumeralValuePair(4, _settingsService.ROMAN_NUMERAL_IV));
-                RomanNumeralValuePairList.Add(new RomanNumeralValuePair(1, _settingsService.ROMAN_NUMERAL_I));
+                romanNumeralValuePairList.Add(new RomanNumeralValuePair(1000, this.settingsService.RomanNumeralM));
+                romanNumeralValuePairList.Add(new RomanNumeralValuePair(900, this.settingsService.RomanNumeralCM));
+                romanNumeralValuePairList.Add(new RomanNumeralValuePair(500, this.settingsService.RomanNumeralD));
+                romanNumeralValuePairList.Add(new RomanNumeralValuePair(400, this.settingsService.RomanNumeralCD));
+                romanNumeralValuePairList.Add(new RomanNumeralValuePair(100, this.settingsService.RomanNumeralC));
+                romanNumeralValuePairList.Add(new RomanNumeralValuePair(90, this.settingsService.RomanNumeralXC));
+                romanNumeralValuePairList.Add(new RomanNumeralValuePair(50, this.settingsService.RomanNumeralL));
+                romanNumeralValuePairList.Add(new RomanNumeralValuePair(40, this.settingsService.RomanNumeralXL));
+                romanNumeralValuePairList.Add(new RomanNumeralValuePair(10, this.settingsService.RomanNumeralX));
+                romanNumeralValuePairList.Add(new RomanNumeralValuePair(9, this.settingsService.RomanNumeralIX));
+                romanNumeralValuePairList.Add(new RomanNumeralValuePair(5, this.settingsService.RomanNumeralV));
+                romanNumeralValuePairList.Add(new RomanNumeralValuePair(4, this.settingsService.RomanNumeralIV));
+                romanNumeralValuePairList.Add(new RomanNumeralValuePair(1, this.settingsService.RomanNumeralI));
             }
 
         }
@@ -46,11 +45,11 @@ namespace RomanNumerals.Service
         public string Generate(int number)
         {
 
-            _result = new StringBuilder();
+            StringBuilder result = new StringBuilder();
 
             // check for beging outside the allowed range
 
-            if (number > _settingsService.MAX_INT)
+            if (number > this.settingsService.MaxInt)
             {
                 throw new Exception("Value too large");
             }
@@ -60,7 +59,7 @@ namespace RomanNumerals.Service
             while (number > 0)
             {
 
-                foreach (RomanNumeralValuePair candidate in RomanNumeralValuePairList)
+                foreach (RomanNumeralValuePair candidate in romanNumeralValuePairList)
                 {
 
                     // check to see if we can deduct a roman numeral / roman numeral combination from the current number ...
@@ -68,10 +67,10 @@ namespace RomanNumerals.Service
                     if (number / candidate.DecimalValue >= 1)
                     {
 
-                        // reduce the total and add note the numeral ...
+                        // reduce the total and note the numeral ...
 
                         number -= candidate.DecimalValue;
-                        _result.Append(candidate.RomanNumeral);
+                        result.Append(candidate.RomanNumeral);
 
                         break;
                     }
@@ -80,7 +79,7 @@ namespace RomanNumerals.Service
 
             }
 
-            return (_result.ToString());
+            return (result.ToString());
         }
     }
 }

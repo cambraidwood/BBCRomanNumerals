@@ -10,7 +10,7 @@ namespace UnitTests
     [TestClass]
     public class RomanNumeralTests
     {
-        private readonly IRomanNumeralGenerator rngSvc;
+        private readonly IRomanNumeralGenerator service;
 
         public RomanNumeralTests()
         {
@@ -21,7 +21,7 @@ namespace UnitTests
                 .AddSingleton<IConfigurationSettings, MockConfigurationSettingsService>()
                 .BuildServiceProvider();
 
-            rngSvc = serviceProvider.GetService<IRomanNumeralGenerator>();
+            service = serviceProvider.GetService<IRomanNumeralGenerator>();
 
         }
 
@@ -29,7 +29,7 @@ namespace UnitTests
         public void I_can_generate_the_roman_numerals_for_1()
         {
 
-            string result = rngSvc.Generate(1);
+            string result = service.Generate(1);
 
             Assert.AreEqual(result, "I");
 
@@ -39,7 +39,7 @@ namespace UnitTests
         public void I_can_generate_the_roman_numerals_for_5()
         {
 
-            string result = rngSvc.Generate(5);
+            string result = service.Generate(5);
 
             Assert.AreEqual(result, "V");
 
@@ -49,7 +49,7 @@ namespace UnitTests
         public void I_can_generate_the_roman_numerals_for_10()
         {
 
-            string result = rngSvc.Generate(10);
+            string result = service.Generate(10);
 
             Assert.AreEqual(result, "X");
 
@@ -59,7 +59,7 @@ namespace UnitTests
         public void I_can_generate_the_roman_numerals_for_20()
         {
 
-            string result = rngSvc.Generate(20);
+            string result = service.Generate(20);
 
             Assert.AreEqual(result, "XX");
 
@@ -69,7 +69,7 @@ namespace UnitTests
         public void I_can_generate_the_roman_numerals_for_3999()
         {
 
-            string result = rngSvc.Generate(3999);
+            string result = service.Generate(3999);
 
             Assert.AreEqual(result, "MMMCMXCIX");
 
@@ -81,7 +81,7 @@ namespace UnitTests
 
             try
             {
-                string result = rngSvc.Generate(4000);
+                string result = service.Generate(4000);
 
                 Assert.Fail("Value out of range - An exception should have been thrown.");
 

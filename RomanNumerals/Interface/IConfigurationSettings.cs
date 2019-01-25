@@ -7,33 +7,33 @@ namespace RomanNumerals.Interface
     public interface IConfigurationSettings
     {
 
-        int MAX_INT { get; set; }
+        int MaxInt { get; set; }
 
-        string ROMAN_NUMERAL_I { get; set; }
+        string RomanNumeralI { get; set; }
 
-        string ROMAN_NUMERAL_IV { get; set; }
+        string RomanNumeralIV { get; set; }
 
-        string ROMAN_NUMERAL_V { get; set; }
+        string RomanNumeralV { get; set; }
 
-        string ROMAN_NUMERAL_IX { get; set; }
+        string RomanNumeralIX { get; set; }
 
-        string ROMAN_NUMERAL_X { get; set; }
+        string RomanNumeralX { get; set; }
 
-        string ROMAN_NUMERAL_XL { get; set; }
+        string RomanNumeralXL { get; set; }
 
-        string ROMAN_NUMERAL_L { get; set; }
+        string RomanNumeralL { get; set; }
 
-        string ROMAN_NUMERAL_XC { get; set; }
+        string RomanNumeralXC { get; set; }
 
-        string ROMAN_NUMERAL_C { get; set; }
+        string RomanNumeralC { get; set; }
 
-        string ROMAN_NUMERAL_CD { get; set; }
+        string RomanNumeralCD { get; set; }
 
-        string ROMAN_NUMERAL_D { get; set; }
+        string RomanNumeralD { get; set; }
 
-        string ROMAN_NUMERAL_CM { get; set; }
+        string RomanNumeralCM { get; set; }
 
-        string ROMAN_NUMERAL_M { get; set; }
+        string RomanNumeralM { get; set; }
 
     }
 }

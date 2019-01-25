@@ -13,8 +13,6 @@ namespace UnitTests
     public class UnknownRomanNumeralTests
     {
 
-        private readonly IRomanNumeralGenerator rngSvc;
-
         private ServiceProvider serviceProvider;
 
         public UnknownRomanNumeralTests()
@@ -35,9 +33,9 @@ namespace UnitTests
             try
             {
 
-                var rngSvc = serviceProvider.GetService<IRomanNumeralGenerator>();
+                var service = serviceProvider.GetService<IRomanNumeralGenerator>();
 
-                string result = rngSvc.Generate(1234);
+                string result = service.Generate(1234);
 
                 Assert.Fail("Invalid Roman Numeral - An exception should have been thrown.");
 

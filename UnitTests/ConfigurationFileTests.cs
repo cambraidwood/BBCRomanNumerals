@@ -14,7 +14,7 @@ namespace UnitTests
     public class ConfigurationFileTests
     {
 
-        private readonly IConfigurationFile _config;
+        private readonly IConfigurationFile service;
 
         public ConfigurationFileTests()
         {
@@ -24,7 +24,7 @@ namespace UnitTests
                 .AddSingleton<IConfigurationFile, ConfigurationFileService>()
                 .BuildServiceProvider();
 
-            _config = serviceProvider.GetService<IConfigurationFile>();
+            service = serviceProvider.GetService<IConfigurationFile>();
 
         }
 
@@ -36,7 +36,7 @@ namespace UnitTests
 
             try
             {
-                int result = _config.GetInteger("MAX_INT");
+                int result = service.GetInteger("MAX_INT");
 
                 Assert.Fail("Not an integer - An exception should have been thrown.");
 
@@ -54,7 +54,7 @@ namespace UnitTests
 
             try
             {
-                int result = _config.GetInteger("NOT_PRESENT");
+                int result = service.GetInteger("NOT_PRESENT");
 
                 Assert.Fail("Setting not found - An exception should have been thrown.");
 
@@ -72,7 +72,7 @@ namespace UnitTests
 
             try
             {
-                string result = _config.GetString("NOT_PRESENT");
+                string result = service.GetString("NOT_PRESENT");
 
                 Assert.Fail("Setting not found - An exception should have been thrown.");
 
