@@ -1,8 +1,7 @@
-using System;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RomanNumerals;
 using RomanNumerals.Interface;
+using System;
 using RomanNumerals.Service;
 
 namespace UnitTests

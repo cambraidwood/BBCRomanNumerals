@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace RomanNumerals.Service
+﻿namespace RomanNumerals.Service
 {
     public class ConfigurationSettingsBase
     {
